@@ -1,0 +1,23 @@
+version: '3.8'  
+services:  
+  postgres:  
+    image: postgres:latest  
+    restart: always  
+    volumes:  
+      - postgres_data:/var/lib/postgresql/data  
+    environment:  
+      POSTGRES_USER: your_user  
+      POSTGRES_PASSWORD: your_password  
+      POSTGRES_DB: your_database  
+  flask:  
+    build: .  
+    restart: always  
+    volumes:  
+      - .:/code  
+    environment:  
+      FLASK_ENV: development  
+      DATABASE_URL: postgres://your_user:your_password@postgres:5432/your_database  
+    ports:  
+      - "5000:5000"  
+volumes:  
+  postgres_data:  
